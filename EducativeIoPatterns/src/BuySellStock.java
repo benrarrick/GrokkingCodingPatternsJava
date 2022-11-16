@@ -4,36 +4,34 @@ public class BuySellStock {
 
     public static int maxProfit(int[] stockPrices) {
         int l = 0;
-        int r = stockPrices.length -1;
-        int profit = Integer.MIN_VALUE;
+        int r = 1;
+        int profit = 0;
 
-        while (l < r){
-            profit = Math.max(profit, stockPrices[r] - stockPrices[l]);
-            if (stockPrices[l + 1] < stockPrices[l]){
-                // move left pointer right
-                l++;
+        while (r < stockPrices.length){
+            // profitable
+            if (stockPrices[l] < stockPrices[r]){
+                profit = Math.max(profit, stockPrices[r] - stockPrices[l]);
             }
             else{
-                // move right pointer left
-                r--;
+                l = r;
             }
+
+            r++;
         }
 
-        return profit;
+        return Math.max(0, profit);
     }
 
     public static void main(String[] args) {
-        int[] target = {7, 4, 11, 10, 5, 15};
         int[][] inputArr = {
-                {2, 3, 1, 2, 4, 3},
-                {1, 4, 4},
-                {1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 2, 3, 4},
-                {1, 2, 1, 3},
-                {5, 4, 9, 8, 11, 3, 7, 12, 15, 44}
+                {7,1,5,3,6,4}
+                ,{1,2,4,2,5,7,2,4,9,0,9}
+                ,{7,6,4,3,1}
+                ,{2,6,8,7,8,7,9,4,1,2,4,5,8}
+                ,{1,2}
         };
-        for (int i = 0; i < target.length; i++) {
-
+        for (int i = 0; i < inputArr.length; i++) {
+            maxProfit(inputArr[i]);
         }
     }
 }
